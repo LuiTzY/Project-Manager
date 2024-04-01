@@ -17,6 +17,7 @@ def register(request):
     #Si es valido guardo mi usuario
     if serializer.is_valid():
         user = serializer.save()
+        
         token = RefreshToken.for_user(user)
         return Response({"user":serializer.data, "token":str(token) }, status=status.HTTP_201_CREATED)
     
@@ -30,3 +31,4 @@ def getUsers(request):
     print("Usuarios obtenidos {}, {}".format(usuarios, serializer))
     sys.stdout.flush()
     return Response({"usuarios":serializer.data},status=status.HTTP_200_OK)
+
